@@ -1,0 +1,123 @@
+VLAD ANDREI-ALEXANDRU
+321CB
+
+
+============================= README =============================
+============================ TEMA 1 PA ===========================
+
+
+    PROBLEMA 1
+------------------------------------------------------------------
+
+    Am rezolvat aceasta problema folosind o metoda simpla de tip
+GREEDY care alege mereu varianta cea mai buna pentru jucatorul
+curent.
+    Ideea acestei probleme fiind maximizarea sumei jucatorilor
+avand la dispozitie niste numere, am ales pentru simplitate si
+pentru o complexitate mai mica sa ordonez descrescator vectorul
+de elemente de la inceput, iar apoi sa aleg in functie de tura
+numarul cel mai mare.
+    Initial am facut aceasta implementare folosind ArrayList, il
+sortam descrescator si dupa aceea, in functie de tura stergeam
+elementul ales in favoarea jucatorului curent. Aceasta metoda 
+mergea pe checker-ul local in maxim 0.2 secunde, iar pe 
+VMCHECKER cu 1,0.. secunde, deci s-a dovedit a fi o alegere proasta.
+    Dupa aceasta incercare am implementat metoda cu vectori
+explicata mai sus. In loc sa elimin elementul (care oricum era cel
+de pe pozitia 0) ma plimb mai departe in vector cu un for. 
+    La fiecare pas de for variabila "tura" devine 1 sau -1.
+    1 -> TUZGU
+   -1 -> RITZA
+   La final se face diferenta sumelor ale lui TUZGU si RITZA si se
+scrie in fisier.
+
+    Complexitatea temporala a acestei implementari este O(nlogn)
+pentru ca sortarea folosita se realizeaza in O(nlogn), iar
+iterarea prin vector (o data) se realizeaza in O(n).
+    Deci COMPLEXITATEA TEMPORALA este O(nlogn).
+
+    COMPLEXITATEA TEMPORALA este O(1) deoarece nu am folosit
+alte structuri de date pentru a rezolva problema.
+
+
+    PROBLEMA 2
+------------------------------------------------------------------
+
+    Pentru rezolvarea acestei probleme am folosit ArrayList in care
+introduc elementele citite din fisier. 
+    Pasul 1 a fost sa ordonez lista descrescator deoarece principiul
+acestei probleme este foarte asemanator cu cel al problemei 1, 
+doar ca de aceasta data voi folosi o abordare de tip 
+PROGRAMARE DINAMICA (e si greedy oarecum).
+    Ideea mea este urmatoarea:
+    Creez o matrice de n linii si k coloane, unde n este numarul de
+elemente din lista si k este numarul maxim de eliminari.
+    Matricea va arata ceva de genul:
+n\k |   0   1   2   3  
+-----------------------
+15  |   15  0   0   0
+    |
+10  |   5   15  0   0
+    |
+7   |   12  5   ..  0
+    |
+6   |   6   12  ..  ..
+    |
+3   |   9...........REZ
+    |
+
+    Fac verificari pentru fiecare eliminare de la 0 -> k (adica pe
+fiecare coloana) pentru toate numerele de pe fiecare linie, in functie
+de randul cui este. Cand este randul lui TUZGU adun, iar cand este
+randul RITZEI scad. Ma folosesc mereu de elementele calculate anterior
+in matrice si astfel se formeaza pentru fiecare eliminare pe ultima
+linie rezultatul cel mai bun. Deci rezultatul care va fi scris in
+fisier se afla pe pozitia [n-1][k-1] in matrice, aceasta reprezentand
+rezultatul cel mai bun dupa k eliminari.
+    Alegerea rezultatului care va fi salvat in matrice pe o pozitie
+anume se face calculand doua cazuri mereu: cel in care s-a elmininat
+deja fiind o alegere mai buna sau se elimina exact elementul curent.
+    Alegerea cea mai buna va fi maximul dintre rezultatul acestor doua
+cazuri.
+
+    Complexitatea temporala este O(n) pentru primul for, iar pentru
+cele doua for-uri imbricate complexitatea maxima este O(k * n),
+deoarece j-ul creste de la un i+1 > 0 mereu pana la k (numarul de
+eliminari). Restul operatiilor se executa in timp constant.
+    Deci COMPLEXITATEA TEMPORALA este O(k * n).
+
+    Deoarece am folosit o matrice de dimensiune k * n pentru a salva
+rezultatele partiale
+    COMPLEXITATEA SPATIALA este O(k * n).
+
+
+
+    PROBLEMA 3
+------------------------------------------------------------------
+
+    Pentru aceasta problema am folosit abordarea programarii
+dinamice. Intr-un vector de dimensiune n salvez elementele 
+vectorului initial si calculez diferentele maxime pe pozitiile
+corespunzatoare pentru distante diferite intre capatul stanga si
+dreapta (aceste capete nu sunt statice, ci se plimba prin vector).
+    In acest fel se completeaza pas cu pas vectorul de rezultate
+partiale (rezultatele vechi vor fi suprascrise, dar nu ma mai
+intereseaza odata ce am calculat cea mai buna diferenta pe parcurs).
+    Deci pentru aceste distante calculez care caz scoate diferenta
+mai mare (elimin capatul din stanga sau din dreapta).
+    Deoarece vectorul de rezultate partiale se completeaza iterativ
+rezultatul final se va afla pe pozitia n dupa ce s-au calculat toate
+combinatiile de stanga, dreapta si diferente intre capete.
+
+    COMPLEXITATEA TEMPORALA a implementarii este O(n^2) deoarece
+elementele vectorului de rezultate partiale sunt actualizate de
+maxim n ori (o data, de doua ori, ... de n ori), iar dimensiunea
+vectorului este n => complexitatea O(n*n) = O(n^2)
+
+    COMPLEXITATEA SPATIALA a acestei implementari este O(n) deoarece
+folosesc un vector de n elemente pentru a stoca rezultatele partiale.
+
+
+    PUNCTAJ
+------------------------------------------------------------------
+    Pe checkerul local obtin 125.00/160.00
